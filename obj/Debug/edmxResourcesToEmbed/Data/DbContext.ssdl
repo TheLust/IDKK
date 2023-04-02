@@ -1,0 +1,136 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="SongPlayerModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="albums">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" Nullable="false" />
+    <Property Name="name" Type="varchar" MaxLength="255" Nullable="false" />
+    <Property Name="year" Type="int" Nullable="false" />
+    <Property Name="artist_id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="artists">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" Nullable="false" />
+    <Property Name="name" Type="varchar" MaxLength="255" Nullable="false" />
+    <Property Name="country" Type="varchar" MaxLength="255" Nullable="false" />
+  </EntityType>
+  <EntityType Name="listening_history">
+    <Key>
+      <PropertyRef Name="user_id" />
+      <PropertyRef Name="song_id" />
+    </Key>
+    <Property Name="user_id" Type="int" Nullable="false" />
+    <Property Name="song_id" Type="int" Nullable="false" />
+    <Property Name="play_count" Type="int" Nullable="false" />
+    <Property Name="last_played" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="songs">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" Nullable="false" />
+    <Property Name="title" Type="varchar" MaxLength="255" Nullable="false" />
+    <Property Name="artist_id" Type="int" Nullable="false" />
+    <Property Name="album_id" Type="int" Nullable="false" />
+    <Property Name="genre" Type="varchar" MaxLength="255" Nullable="false" />
+  </EntityType>
+  <EntityType Name="users">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" Nullable="false" />
+    <Property Name="name" Type="varchar" MaxLength="255" Nullable="false" />
+    <Property Name="email_address" Type="varchar" MaxLength="255" Nullable="false" />
+    <Property Name="subscription_type" Type="varchar" MaxLength="255" Nullable="false" />
+  </EntityType>
+  <Association Name="FK__albums__artist_i__267ABA7A">
+    <End Role="artists" Type="Self.artists" Multiplicity="1" />
+    <End Role="albums" Type="Self.albums" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="artists">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="albums">
+        <PropertyRef Name="artist_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__listening__song___300424B4">
+    <End Role="songs" Type="Self.songs" Multiplicity="1" />
+    <End Role="listening_history" Type="Self.listening_history" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="songs">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="listening_history">
+        <PropertyRef Name="song_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__listening__user___2F10007B">
+    <End Role="users" Type="Self.users" Multiplicity="1" />
+    <End Role="listening_history" Type="Self.listening_history" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="users">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="listening_history">
+        <PropertyRef Name="user_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__songs__album_id__2A4B4B5E">
+    <End Role="albums" Type="Self.albums" Multiplicity="1" />
+    <End Role="songs" Type="Self.songs" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="albums">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="songs">
+        <PropertyRef Name="album_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__songs__artist_id__29572725">
+    <End Role="artists" Type="Self.artists" Multiplicity="1" />
+    <End Role="songs" Type="Self.songs" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="artists">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="songs">
+        <PropertyRef Name="artist_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="SongPlayerModelStoreContainer">
+    <EntitySet Name="albums" EntityType="Self.albums" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="artists" EntityType="Self.artists" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="listening_history" EntityType="Self.listening_history" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="songs" EntityType="Self.songs" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="users" EntityType="Self.users" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK__albums__artist_i__267ABA7A" Association="Self.FK__albums__artist_i__267ABA7A">
+      <End Role="artists" EntitySet="artists" />
+      <End Role="albums" EntitySet="albums" />
+    </AssociationSet>
+    <AssociationSet Name="FK__listening__song___300424B4" Association="Self.FK__listening__song___300424B4">
+      <End Role="songs" EntitySet="songs" />
+      <End Role="listening_history" EntitySet="listening_history" />
+    </AssociationSet>
+    <AssociationSet Name="FK__listening__user___2F10007B" Association="Self.FK__listening__user___2F10007B">
+      <End Role="users" EntitySet="users" />
+      <End Role="listening_history" EntitySet="listening_history" />
+    </AssociationSet>
+    <AssociationSet Name="FK__songs__album_id__2A4B4B5E" Association="Self.FK__songs__album_id__2A4B4B5E">
+      <End Role="albums" EntitySet="albums" />
+      <End Role="songs" EntitySet="songs" />
+    </AssociationSet>
+    <AssociationSet Name="FK__songs__artist_id__29572725" Association="Self.FK__songs__artist_id__29572725">
+      <End Role="artists" EntitySet="artists" />
+      <End Role="songs" EntitySet="songs" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

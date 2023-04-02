@@ -1,0 +1,16 @@
+C:\School\ProgViz\ExempluConBazaDeDate\bin\Debug\ExempluConBazaDeDate.exe.config
+C:\School\ProgViz\ExempluConBazaDeDate\bin\Debug\ExempluConBazaDeDate.exe
+C:\School\ProgViz\ExempluConBazaDeDate\bin\Debug\ExempluConBazaDeDate.pdb
+C:\School\ProgViz\ExempluConBazaDeDate\bin\Debug\EntityFramework.dll
+C:\School\ProgViz\ExempluConBazaDeDate\bin\Debug\EntityFramework.SqlServer.dll
+C:\School\ProgViz\ExempluConBazaDeDate\bin\Debug\EntityFramework.xml
+C:\School\ProgViz\ExempluConBazaDeDate\bin\Debug\EntityFramework.SqlServer.xml
+C:\School\ProgViz\ExempluConBazaDeDate\obj\Debug\ExempluConBazaDeDate.csproj.AssemblyReference.cache
+C:\School\ProgViz\ExempluConBazaDeDate\obj\Debug\ExempluConBazaDeDate.csproj.SuggestedBindingRedirects.cache
+C:\School\ProgViz\ExempluConBazaDeDate\obj\Debug\ExempluConBazaDeDate.Form1.resources
+C:\School\ProgViz\ExempluConBazaDeDate\obj\Debug\ExempluConBazaDeDate.Properties.Resources.resources
+C:\School\ProgViz\ExempluConBazaDeDate\obj\Debug\ExempluConBazaDeDate.csproj.GenerateResource.cache
+C:\School\ProgViz\ExempluConBazaDeDate\obj\Debug\ExempluConBazaDeDate.csproj.CoreCompileInputs.cache
+C:\School\ProgViz\ExempluConBazaDeDate\obj\Debug\ExempluConBazaDeDate.csproj.CopyComplete
+C:\School\ProgViz\ExempluConBazaDeDate\obj\Debug\ExempluConBazaDeDate.exe
+C:\School\ProgViz\ExempluConBazaDeDate\obj\Debug\ExempluConBazaDeDate.pdb

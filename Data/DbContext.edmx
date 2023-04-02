@@ -1,0 +1,368 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="SongPlayerModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="albums">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="year" Type="int" Nullable="false" />
+          <Property Name="artist_id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="artists">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="country" Type="varchar" MaxLength="255" Nullable="false" />
+        </EntityType>
+        <EntityType Name="listening_history">
+          <Key>
+            <PropertyRef Name="user_id" />
+            <PropertyRef Name="song_id" />
+          </Key>
+          <Property Name="user_id" Type="int" Nullable="false" />
+          <Property Name="song_id" Type="int" Nullable="false" />
+          <Property Name="play_count" Type="int" Nullable="false" />
+          <Property Name="last_played" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="songs">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="title" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="artist_id" Type="int" Nullable="false" />
+          <Property Name="album_id" Type="int" Nullable="false" />
+          <Property Name="genre" Type="varchar" MaxLength="255" Nullable="false" />
+        </EntityType>
+        <EntityType Name="users">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="email_address" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="subscription_type" Type="varchar" MaxLength="255" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__albums__artist_i__267ABA7A">
+          <End Role="artists" Type="Self.artists" Multiplicity="1" />
+          <End Role="albums" Type="Self.albums" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="artists">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="albums">
+              <PropertyRef Name="artist_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__listening__song___300424B4">
+          <End Role="songs" Type="Self.songs" Multiplicity="1" />
+          <End Role="listening_history" Type="Self.listening_history" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="songs">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="listening_history">
+              <PropertyRef Name="song_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__listening__user___2F10007B">
+          <End Role="users" Type="Self.users" Multiplicity="1" />
+          <End Role="listening_history" Type="Self.listening_history" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="users">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="listening_history">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__songs__album_id__2A4B4B5E">
+          <End Role="albums" Type="Self.albums" Multiplicity="1" />
+          <End Role="songs" Type="Self.songs" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="albums">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="songs">
+              <PropertyRef Name="album_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__songs__artist_id__29572725">
+          <End Role="artists" Type="Self.artists" Multiplicity="1" />
+          <End Role="songs" Type="Self.songs" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="artists">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="songs">
+              <PropertyRef Name="artist_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="SongPlayerModelStoreContainer">
+          <EntitySet Name="albums" EntityType="Self.albums" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="artists" EntityType="Self.artists" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="listening_history" EntityType="Self.listening_history" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="songs" EntityType="Self.songs" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="users" EntityType="Self.users" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__albums__artist_i__267ABA7A" Association="Self.FK__albums__artist_i__267ABA7A">
+            <End Role="artists" EntitySet="artists" />
+            <End Role="albums" EntitySet="albums" />
+          </AssociationSet>
+          <AssociationSet Name="FK__listening__song___300424B4" Association="Self.FK__listening__song___300424B4">
+            <End Role="songs" EntitySet="songs" />
+            <End Role="listening_history" EntitySet="listening_history" />
+          </AssociationSet>
+          <AssociationSet Name="FK__listening__user___2F10007B" Association="Self.FK__listening__user___2F10007B">
+            <End Role="users" EntitySet="users" />
+            <End Role="listening_history" EntitySet="listening_history" />
+          </AssociationSet>
+          <AssociationSet Name="FK__songs__album_id__2A4B4B5E" Association="Self.FK__songs__album_id__2A4B4B5E">
+            <End Role="albums" EntitySet="albums" />
+            <End Role="songs" EntitySet="songs" />
+          </AssociationSet>
+          <AssociationSet Name="FK__songs__artist_id__29572725" Association="Self.FK__songs__artist_id__29572725">
+            <End Role="artists" EntitySet="artists" />
+            <End Role="songs" EntitySet="songs" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="SongPlayerModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="album">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="name" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="year" Type="Int32" Nullable="false" />
+          <Property Name="artist_id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="artist" Relationship="Self.FK__albums__artist_i__267ABA7A" FromRole="albums" ToRole="artists" />
+          <NavigationProperty Name="songs" Relationship="Self.FK__songs__album_id__2A4B4B5E" FromRole="albums" ToRole="songs" />
+        </EntityType>
+        <EntityType Name="artist">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="name" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="country" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="albums" Relationship="Self.FK__albums__artist_i__267ABA7A" FromRole="artists" ToRole="albums" />
+          <NavigationProperty Name="songs" Relationship="Self.FK__songs__artist_id__29572725" FromRole="artists" ToRole="songs" />
+        </EntityType>
+        <EntityType Name="listening_history">
+          <Key>
+            <PropertyRef Name="user_id" />
+            <PropertyRef Name="song_id" />
+          </Key>
+          <Property Name="user_id" Type="Int32" Nullable="false" />
+          <Property Name="song_id" Type="Int32" Nullable="false" />
+          <Property Name="play_count" Type="Int32" Nullable="false" />
+          <Property Name="last_played" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="song" Relationship="Self.FK__listening__song___300424B4" FromRole="listening_history" ToRole="songs" />
+          <NavigationProperty Name="user" Relationship="Self.FK__listening__user___2F10007B" FromRole="listening_history" ToRole="users" />
+        </EntityType>
+        <EntityType Name="song">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="title" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="artist_id" Type="Int32" Nullable="false" />
+          <Property Name="album_id" Type="Int32" Nullable="false" />
+          <Property Name="genre" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="album" Relationship="Self.FK__songs__album_id__2A4B4B5E" FromRole="songs" ToRole="albums" />
+          <NavigationProperty Name="artist" Relationship="Self.FK__songs__artist_id__29572725" FromRole="songs" ToRole="artists" />
+          <NavigationProperty Name="listening_history" Relationship="Self.FK__listening__song___300424B4" FromRole="songs" ToRole="listening_history" />
+        </EntityType>
+        <EntityType Name="user">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="name" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="email_address" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="subscription_type" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="listening_history" Relationship="Self.FK__listening__user___2F10007B" FromRole="users" ToRole="listening_history" />
+        </EntityType>
+        <Association Name="FK__albums__artist_i__267ABA7A">
+          <End Role="artists" Type="Self.artist" Multiplicity="1" />
+          <End Role="albums" Type="Self.album" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="artists">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="albums">
+              <PropertyRef Name="artist_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__songs__album_id__2A4B4B5E">
+          <End Role="albums" Type="Self.album" Multiplicity="1" />
+          <End Role="songs" Type="Self.song" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="albums">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="songs">
+              <PropertyRef Name="album_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__songs__artist_id__29572725">
+          <End Role="artists" Type="Self.artist" Multiplicity="1" />
+          <End Role="songs" Type="Self.song" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="artists">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="songs">
+              <PropertyRef Name="artist_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__listening__song___300424B4">
+          <End Role="songs" Type="Self.song" Multiplicity="1" />
+          <End Role="listening_history" Type="Self.listening_history" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="songs">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="listening_history">
+              <PropertyRef Name="song_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__listening__user___2F10007B">
+          <End Role="users" Type="Self.user" Multiplicity="1" />
+          <End Role="listening_history" Type="Self.listening_history" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="users">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="listening_history">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="SongPlayerRepository" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="albums" EntityType="Self.album" />
+          <EntitySet Name="artists" EntityType="Self.artist" />
+          <EntitySet Name="listening_history" EntityType="Self.listening_history" />
+          <EntitySet Name="songs" EntityType="Self.song" />
+          <EntitySet Name="users" EntityType="Self.user" />
+          <AssociationSet Name="FK__albums__artist_i__267ABA7A" Association="Self.FK__albums__artist_i__267ABA7A">
+            <End Role="artists" EntitySet="artists" />
+            <End Role="albums" EntitySet="albums" />
+          </AssociationSet>
+          <AssociationSet Name="FK__songs__album_id__2A4B4B5E" Association="Self.FK__songs__album_id__2A4B4B5E">
+            <End Role="albums" EntitySet="albums" />
+            <End Role="songs" EntitySet="songs" />
+          </AssociationSet>
+          <AssociationSet Name="FK__songs__artist_id__29572725" Association="Self.FK__songs__artist_id__29572725">
+            <End Role="artists" EntitySet="artists" />
+            <End Role="songs" EntitySet="songs" />
+          </AssociationSet>
+          <AssociationSet Name="FK__listening__song___300424B4" Association="Self.FK__listening__song___300424B4">
+            <End Role="songs" EntitySet="songs" />
+            <End Role="listening_history" EntitySet="listening_history" />
+          </AssociationSet>
+          <AssociationSet Name="FK__listening__user___2F10007B" Association="Self.FK__listening__user___2F10007B">
+            <End Role="users" EntitySet="users" />
+            <End Role="listening_history" EntitySet="listening_history" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="SongPlayerModelStoreContainer" CdmEntityContainer="SongPlayerRepository">
+          <EntitySetMapping Name="albums">
+            <EntityTypeMapping TypeName="SongPlayerModel.album">
+              <MappingFragment StoreEntitySet="albums">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="year" ColumnName="year" />
+                <ScalarProperty Name="artist_id" ColumnName="artist_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="artists">
+            <EntityTypeMapping TypeName="SongPlayerModel.artist">
+              <MappingFragment StoreEntitySet="artists">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="country" ColumnName="country" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="listening_history">
+            <EntityTypeMapping TypeName="SongPlayerModel.listening_history">
+              <MappingFragment StoreEntitySet="listening_history">
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+                <ScalarProperty Name="song_id" ColumnName="song_id" />
+                <ScalarProperty Name="play_count" ColumnName="play_count" />
+                <ScalarProperty Name="last_played" ColumnName="last_played" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="songs">
+            <EntityTypeMapping TypeName="SongPlayerModel.song">
+              <MappingFragment StoreEntitySet="songs">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="title" ColumnName="title" />
+                <ScalarProperty Name="artist_id" ColumnName="artist_id" />
+                <ScalarProperty Name="album_id" ColumnName="album_id" />
+                <ScalarProperty Name="genre" ColumnName="genre" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="users">
+            <EntityTypeMapping TypeName="SongPlayerModel.user">
+              <MappingFragment StoreEntitySet="users">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="email_address" ColumnName="email_address" />
+                <ScalarProperty Name="subscription_type" ColumnName="subscription_type" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
